@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import Search from '../components/Search';
 import FilterTasks from '../components/FilterTasks';
 import NoTasks from '../components/NoTasks';
+import AddTask from '../components/AddTask';
+import TaskDetails from '../components/TaskDetails';
 
 function HomeScreen() {
   return (
@@ -16,6 +18,8 @@ function HomeScreen() {
                 <Search/>
                 <FilterTasks/>
                 <NoTasks/>
+                <TaskDetails/>
+                <AddTask/>
             </ScrollView>
 
         </SafeAreaView>
