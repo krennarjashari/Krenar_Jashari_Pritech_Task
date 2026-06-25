@@ -7,6 +7,7 @@ import FilterTasks from "../components/FilterTasks";
 import NoTasks from "../components/NoTasks";
 import AddTask from "../components/AddTask";
 import TaskDetails from "../components/TaskDetails";
+import TaskItem from "../components/TaskItem";
 
 export interface Task {
   id: string;
@@ -65,6 +66,20 @@ function HomeScreen() {
           <TouchableOpacity style={styles.openFormButton} onPress={()=>setIsAddTaskModalOpen(true)}>
             <Text style={styles.openFormButtonText}>+Add New Task</Text>
           </TouchableOpacity>
+
+          <View style={styles.listContainer}>
+            {tasks.map((item)=>(
+              <TaskItem 
+              key={item.id}
+              title={item.title}
+              description={item.description}
+              isCompleted={item.isCompleted}
+              createdDate={item.createdDate}
+              // onToggle={()=>{}}
+              // onDelete={()=>{}}
+              />
+            ))}
+          </View>
         </ScrollView>
 
         <AddTask visible={isAddTaskModalOpen} onClose={()=>setIsAddTaskModalOpen(false)} onAdd={handleAddTask}/>
@@ -105,5 +120,8 @@ const styles = StyleSheet.create({
     color: '#0F2038',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  listContainer: {
+    marginTop: 12,
   },
 });
