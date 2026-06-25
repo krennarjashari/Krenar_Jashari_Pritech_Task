@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import { View, ScrollView, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import Search from "../components/Search";
@@ -34,6 +34,21 @@ function HomeScreen() {
     },
   ]);
 
+  const [isAddTaskModalOpen, setIsAddTaskModalOpen]=useState(false);
+
+  const handleAddTask=(title:string, description:string)=>{
+    const newTask={
+      id:Date.now().toString(),
+      title:title,
+      description:description,
+      isCompleted:false,
+      createdDate:new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    }
+
+    setTasks([newTask, ...tasks]);
+    setIsAddTaskModalOpen(false);
+  }
+
   return (
     <View style={styles.webViewportCenter}>
       <SafeAreaView
@@ -46,8 +61,13 @@ function HomeScreen() {
           <FilterTasks />
           <NoTasks />
           <TaskDetails />
-          <AddTask />
+
+          <TouchableOpacity style={styles.openFormButton} onPress={()=>setIsAddTaskModalOpen(true)}>
+            <Text style={styles.openFormButtonText}>+Add New Task</Text>
+          </TouchableOpacity>
         </ScrollView>
+
+        <AddTask visible={isAddTaskModalOpen} onClose={()=>setIsAddTaskModalOpen(false)} onAdd={handleAddTask}/>
       </SafeAreaView>
     </View>
   );
@@ -71,5 +91,19 @@ const styles = StyleSheet.create({
   scrollLayout: {
     flexGrow: 1,
     paddingBottom: 40,
+  },
+  openFormButton: {
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 24,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  openFormButtonText: {
+    color: '#0F2038',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

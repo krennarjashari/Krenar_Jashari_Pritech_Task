@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Modal,
   View,
@@ -9,16 +9,42 @@ import {
 } from "react-native";
 import { X } from "lucide-react-native";
 
-function AddTask() {
-  const isEmpty = true;
+interface AddTaskProps{
+  visible:boolean;
+  onClose:()=>void;
+  onAdd:(title:string, description:string)=>void;
+}
+
+function AddTask({visible, onClose, onAdd}:AddTaskProps) {
+  const [title, setTitle]=useState('');
+  const [description, setDescription]=useState('');
+  const [error, setError]=useState(false);
+
+  const handleSubmit=()=>{
+    if(title.trim()===""){
+      setError(true);
+      return;
+    }
+
+    onAdd(title,description);
+
+    setTitle('');
+    setDescription('');
+    setError(false);
+  }
+
+  const handleClose=()=>{
+    setError(false);
+    onClose();
+  }
 
   return (
-    <Modal visible={false} animationType="slide" transparent={true}>
+    <Modal visible={visible} animationType="slide" transparent={true}>
       <View style={styles.backdrop}>
         <View style={styles.formCard}>
           <View style={styles.header}>
             <Text style={styles.headerTitle}>Create New Task</Text>
-            <TouchableOpacity style={styles.closeButton}>
+            <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
               <X color="#FFFFFF" size={20} />
             </TouchableOpacity>
           </View>
@@ -28,11 +54,17 @@ function AddTask() {
             style={styles.textInput}
             placeholder="Enter task title.."
             placeholderTextColor="#8E8E93"
-            editable={true}
+            value={title}
+            onChangeText={(text)=>{
+              setTitle(text);
+              if(text.trim()!==""){
+                setError(false);
+              }
+            }}
           />
 
-          {isEmpty && (
-            <Text style={styles.isEmptyText}>Task title is required.</Text>
+          {error && (
+            <Text style={styles.errorText}>Task title is required.</Text>
           )}
 
           <Text style={styles.inputLabel}>Description</Text>
@@ -42,10 +74,15 @@ function AddTask() {
             placeholderTextColor="#8E8E93"
             multiline={true}
             numberOfLines={3}
-            editable={true}
+            value={description}
+            onChangeText={setDescription}
           />
 
-          <TouchableOpacity style={styles.submitButton} activeOpacity={0.83}>
+          <TouchableOpacity 
+          style={styles.submitButton} 
+          activeOpacity={0.83}
+          onPress={handleSubmit}
+          >
             <Text style={styles.submitButtonText}>Add Task</Text>
           </TouchableOpacity>
         </View>
@@ -126,7 +163,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  isEmptyText: {
+  errorText: {
     color: "#EF4444",
     fontSize: 12,
     marginTop: 4,
