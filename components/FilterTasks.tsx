@@ -10,7 +10,7 @@ function FilterTasks() {
             return (
                 <TouchableOpacity 
                 key={filter}
-                style={[styles.tabButton, isActive?styles.activeTabButton:styles.inactiveTabButon]}
+                style={[styles.tabButton, isActive?styles.activeTabButton:styles.inactiveTabButton]}
                 activeOpacity={0.8}
                 >
                     <Text style={[styles.tabText, isActive?styles.activeTabText:styles.inactiveTabText]}>
@@ -26,6 +26,34 @@ function FilterTasks() {
 
 export default FilterTasks
 
-const styles=StyleSheet.create({
-
-})
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    paddingHorizontal: 24,
+    marginTop: 16,
+    gap: 8,
+  },
+  tabButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 9999,
+  },
+  activeTabButton: {
+    backgroundColor: '#FFFFFF',
+  },
+  inactiveTabButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  tabText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  activeTabText: {
+    color: '#0F2038',
+  },
+  inactiveTabText: {
+    color: '#A3A3A3',
+  },
+});
