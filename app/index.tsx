@@ -3,6 +3,8 @@ import { View, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import Search from '../components/Search';
+import FilterTasks from '../components/FilterTasks';
+import NoTasks from '../components/NoTasks';
 
 function HomeScreen() {
   return (
@@ -12,6 +14,8 @@ function HomeScreen() {
             <ScrollView contentContainerStyle={styles.scrollLayout} bounces={false}>
                 <Header/>
                 <Search/>
+                <FilterTasks/>
+                <NoTasks/>
             </ScrollView>
 
         </SafeAreaView>
