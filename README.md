@@ -1,13 +1,13 @@
 # PRITECH React Native Task Application
 
 ## Features Implemented
-* **Add a new task
-* **View list of tasks
-* **Mark a task as completed
-* **Delete a task
-* **Search a task by title
-* **Filter tasks by "all", "active", "done"
-* **Navigate from tabs
+* Add a new task
+* View list of tasks
+* Mark a task as completed
+* Delete a task
+* Search a task by title
+* Filter tasks by "all", "active", "done"
+* Navigate from tabs
 
 ## Local Development Setup
 
