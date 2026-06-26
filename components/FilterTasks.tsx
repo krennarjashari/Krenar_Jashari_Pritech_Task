@@ -1,17 +1,23 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-function FilterTasks() {
+interface FilterTasksProps{
+  activeTab:string;
+  onSelectTab:(tab:string)=>void;
+}
+
+function FilterTasks({activeTab, onSelectTab}:FilterTasksProps) {
     const filters=['All', 'Active', 'Done'];
   return (
     <View style={styles.container}>
         {filters.map((filter)=>{
-            const isActive=filter==='All';
+            const isActive=filter===activeTab;
             return (
                 <TouchableOpacity 
                 key={filter}
                 style={[styles.tabButton, isActive?styles.activeTabButton:styles.inactiveTabButton]}
                 activeOpacity={0.8}
+                onPress={()=>onSelectTab(filter)}
                 >
                     <Text style={[styles.tabText, isActive?styles.activeTabText:styles.inactiveTabText]}>
                         {filter}

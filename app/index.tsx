@@ -43,6 +43,8 @@ function HomeScreen() {
 
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
 
+  const [activeTab, setActiveTab]=useState('All');
+
   const handleAddTask = (title: string, description: string) => {
     const newTask = {
       id: Date.now().toString(),
@@ -68,6 +70,12 @@ function HomeScreen() {
     );
   };
 
+  const displayedTasks=tasks.filter(task=>{
+    if(activeTab==='Active') return !task.isCompleted;
+    if (activeTab==='Done') return task.isCompleted;
+    return true;
+  })
+
   return (
     <View style={styles.webViewportCenter}>
       <SafeAreaView
@@ -77,7 +85,7 @@ function HomeScreen() {
         <ScrollView contentContainerStyle={styles.scrollLayout} bounces={false}>
           <Header />
           <Search />
-          <FilterTasks />
+          <FilterTasks activeTab={activeTab} onSelectTab={setActiveTab}/>
           <NoTasks />
           <TaskDetails />
 
@@ -89,7 +97,7 @@ function HomeScreen() {
           </TouchableOpacity>
 
           <View style={styles.listContainer}>
-            {tasks.map((item) => (
+            {displayedTasks.map((item) => (
               <TaskItem
                 key={item.id}
                 title={item.title}
