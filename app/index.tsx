@@ -14,6 +14,7 @@ import NoTasks from "../components/NoTasks";
 import AddTask from "../components/AddTask";
 import TaskDetails from "../components/TaskDetails";
 import TaskItem from "../components/TaskItem";
+import CustomButton from "../components/CustomButton";
 
 export interface Task {
   id: string;
@@ -45,7 +46,7 @@ function HomeScreen() {
 
   const [activeTab, setActiveTab] = useState("All");
 
-  const [searchQuery, setSearchQuery]=useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleAddTask = (title: string, description: string) => {
     const newTask = {
@@ -73,16 +74,16 @@ function HomeScreen() {
   };
 
   const displayedTasks = tasks.filter((task) => {
-    const search=task.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const search = task.title.toLowerCase().includes(searchQuery.toLowerCase());
 
     if (activeTab === "Active") return search && !task.isCompleted;
     if (activeTab === "Done") return search && task.isCompleted;
     return search;
   });
 
-  const handleDeleteTask=(id:string)=>{
-    setTasks(tasks.filter((task)=>task.id !==id));
-  }
+  const handleDeleteTask = (id: string) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
 
   return (
     <View style={styles.webViewportCenter}>
@@ -96,12 +97,12 @@ function HomeScreen() {
           <FilterTasks activeTab={activeTab} onSelectTab={setActiveTab} />
           <TaskDetails />
 
-          <TouchableOpacity
-            style={styles.openFormButton}
-            onPress={() => setIsAddTaskModalOpen(true)}
-          >
-            <Text style={styles.openFormButtonText}>+Add New Task</Text>
-          </TouchableOpacity>
+          <View>
+            <CustomButton
+              title="+ Add New Task"
+              onPress={() => setIsAddTaskModalOpen(true)}
+            />
+          </View>
 
           <View style={styles.listContainer}>
             {tasks.length <= 2 && <NoTasks />}
