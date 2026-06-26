@@ -13,6 +13,7 @@
 
 Follow these steps to download, install, and preview the application locally on your computer or mobile device:
 
+```bash
 https://github.com/krennarjashari/Krenar_Jashari_Pritech_Task.git
 cd Krenar_Jashari_Pritech_Task
 npm install
