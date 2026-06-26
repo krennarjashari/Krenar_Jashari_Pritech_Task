@@ -14,7 +14,7 @@
 Follow these steps to download, install, and preview the application locally on your computer or mobile device:
 
 ```bash
-git clone https://github.com/krennarjashari/Krenar_Jashari_Pritech_Task.git
+open cmd or visual studio code and paste in the terminal: git clone https://github.com/krennarjashari/Krenar_Jashari_Pritech_Task.git
 cd Krenar_Jashari_Pritech_Task
 npm install
 npx expo start --web
