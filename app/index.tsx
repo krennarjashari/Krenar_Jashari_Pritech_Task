@@ -43,7 +43,7 @@ function HomeScreen() {
 
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
 
-  const [activeTab, setActiveTab]=useState('All');
+  const [activeTab, setActiveTab] = useState("All");
 
   const handleAddTask = (title: string, description: string) => {
     const newTask = {
@@ -65,16 +65,16 @@ function HomeScreen() {
   const handleToggleComplete = (id: string) => {
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
-      )
+        task.id === id ? { ...task, isCompleted: !task.isCompleted } : task,
+      ),
     );
   };
 
-  const displayedTasks=tasks.filter(task=>{
-    if(activeTab==='Active') return !task.isCompleted;
-    if (activeTab==='Done') return task.isCompleted;
+  const displayedTasks = tasks.filter((task) => {
+    if (activeTab === "Active") return !task.isCompleted;
+    if (activeTab === "Done") return task.isCompleted;
     return true;
-  })
+  });
 
   return (
     <View style={styles.webViewportCenter}>
@@ -85,8 +85,7 @@ function HomeScreen() {
         <ScrollView contentContainerStyle={styles.scrollLayout} bounces={false}>
           <Header />
           <Search />
-          <FilterTasks activeTab={activeTab} onSelectTab={setActiveTab}/>
-          <NoTasks />
+          <FilterTasks activeTab={activeTab} onSelectTab={setActiveTab} />
           <TaskDetails />
 
           <TouchableOpacity
@@ -97,6 +96,8 @@ function HomeScreen() {
           </TouchableOpacity>
 
           <View style={styles.listContainer}>
+            {tasks.length <= 2 && <NoTasks />}
+
             {displayedTasks.map((item) => (
               <TaskItem
                 key={item.id}
@@ -104,8 +105,8 @@ function HomeScreen() {
                 description={item.description}
                 isCompleted={item.isCompleted}
                 createdDate={item.createdDate}
-                onToggle={()=>handleToggleComplete(item.id)}
-                onDelete={()=>{}}
+                onToggle={() => handleToggleComplete(item.id)}
+                onDelete={() => {}}
               />
             ))}
           </View>

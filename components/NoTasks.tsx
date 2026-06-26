@@ -8,7 +8,7 @@ function NoTasks() {
       <View style={styles.iconCircle}>
         <ClipboardList color="#FFFFFF" size={28} />
       </View>
-      <Text style={styles.title}>No tasks yet</Text>
+      <Text style={styles.title}>No new tasks yet</Text>
     </View>
   );
 }
