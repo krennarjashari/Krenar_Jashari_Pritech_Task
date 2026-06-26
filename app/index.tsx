@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, ScrollView, TouchableOpacity, StyleSheet, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import Search from "../components/Search";
@@ -35,20 +41,32 @@ function HomeScreen() {
     },
   ]);
 
-  const [isAddTaskModalOpen, setIsAddTaskModalOpen]=useState(false);
+  const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
 
-  const handleAddTask=(title:string, description:string)=>{
-    const newTask={
-      id:Date.now().toString(),
-      title:title,
-      description:description,
-      isCompleted:false,
-      createdDate:new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-    }
+  const handleAddTask = (title: string, description: string) => {
+    const newTask = {
+      id: Date.now().toString(),
+      title: title,
+      description: description,
+      isCompleted: false,
+      createdDate: new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }),
+    };
 
     setTasks([newTask, ...tasks]);
     setIsAddTaskModalOpen(false);
-  }
+  };
+
+  const handleToggleComplete = (id: string) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, isCompleted: !task.isCompleted } : task
+      )
+    );
+  };
 
   return (
     <View style={styles.webViewportCenter}>
@@ -63,26 +81,33 @@ function HomeScreen() {
           <NoTasks />
           <TaskDetails />
 
-          <TouchableOpacity style={styles.openFormButton} onPress={()=>setIsAddTaskModalOpen(true)}>
+          <TouchableOpacity
+            style={styles.openFormButton}
+            onPress={() => setIsAddTaskModalOpen(true)}
+          >
             <Text style={styles.openFormButtonText}>+Add New Task</Text>
           </TouchableOpacity>
 
           <View style={styles.listContainer}>
-            {tasks.map((item)=>(
-              <TaskItem 
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              isCompleted={item.isCompleted}
-              createdDate={item.createdDate}
-              // onToggle={()=>{}}
-              // onDelete={()=>{}}
+            {tasks.map((item) => (
+              <TaskItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                isCompleted={item.isCompleted}
+                createdDate={item.createdDate}
+                onToggle={()=>handleToggleComplete(item.id)}
+                onDelete={()=>{}}
               />
             ))}
           </View>
         </ScrollView>
 
-        <AddTask visible={isAddTaskModalOpen} onClose={()=>setIsAddTaskModalOpen(false)} onAdd={handleAddTask}/>
+        <AddTask
+          visible={isAddTaskModalOpen}
+          onClose={() => setIsAddTaskModalOpen(false)}
+          onAdd={handleAddTask}
+        />
       </SafeAreaView>
     </View>
   );
@@ -108,17 +133,17 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   openFormButton: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     marginHorizontal: 24,
     marginTop: 20,
     height: 48,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   openFormButtonText: {
-    color: '#0F2038',
-    fontWeight: 'bold',
+    color: "#0F2038",
+    fontWeight: "bold",
     fontSize: 16,
   },
   listContainer: {
