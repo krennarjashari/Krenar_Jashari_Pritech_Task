@@ -9,6 +9,7 @@ interface TastItemProps {
   createdDate: string;
   onToggle: () => void;
   onDelete: () => void;
+  onPress:()=>void;
 }
 
 function TaskItem({
@@ -18,9 +19,10 @@ function TaskItem({
   createdDate,
   onToggle,
   onDelete,
+  onPress
 }: TastItemProps) {
   return (
-    <TouchableOpacity style={styles.card} activeOpacity={0.75}>
+    <TouchableOpacity style={styles.card} activeOpacity={0.75} onPress={onPress}>
       <TouchableOpacity
         style={[styles.checkbox, isCompleted && styles.checkboxCompleted]}
         onPress={onToggle}

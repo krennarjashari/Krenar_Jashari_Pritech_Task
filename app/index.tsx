@@ -43,10 +43,9 @@ function HomeScreen() {
   ]);
 
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
-
   const [activeTab, setActiveTab] = useState("All");
-
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   const handleAddTask = (title: string, description: string) => {
     const newTask = {
@@ -95,7 +94,7 @@ function HomeScreen() {
           <Header />
           <Search value={searchQuery} onChangeText={setSearchQuery} />
           <FilterTasks activeTab={activeTab} onSelectTab={setActiveTab} />
-          <TaskDetails />
+          <TaskDetails task={selectedTask} onClose={()=>setSelectedTask(null)}/>
 
           <View>
             <CustomButton
@@ -116,6 +115,7 @@ function HomeScreen() {
                 createdDate={item.createdDate}
                 onToggle={() => handleToggleComplete(item.id)}
                 onDelete={() => handleDeleteTask(item.id)}
+                onPress={()=>setSelectedTask(item)}
               />
             ))}
           </View>
