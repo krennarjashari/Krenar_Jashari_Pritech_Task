@@ -76,6 +76,10 @@ function HomeScreen() {
     return true;
   });
 
+  const handleDeleteTask=(id:string)=>{
+    setTasks(tasks.filter((task)=>task.id !==id));
+  }
+
   return (
     <View style={styles.webViewportCenter}>
       <SafeAreaView
@@ -106,7 +110,7 @@ function HomeScreen() {
                 isCompleted={item.isCompleted}
                 createdDate={item.createdDate}
                 onToggle={() => handleToggleComplete(item.id)}
-                onDelete={() => {}}
+                onDelete={() => handleDeleteTask(item.id)}
               />
             ))}
           </View>

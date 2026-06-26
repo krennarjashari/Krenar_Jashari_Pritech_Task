@@ -17,19 +17,21 @@ function TaskItem({
   isCompleted,
   createdDate,
   onToggle,
-  onDelete
+  onDelete,
 }: TastItemProps) {
   return (
     <TouchableOpacity style={styles.card} activeOpacity={0.75}>
       <TouchableOpacity
-       style={[styles.checkbox, isCompleted&& styles.checkboxCompleted]}
-       onPress={onToggle} activeOpacity={0.8}
-       >
+        style={[styles.checkbox, isCompleted && styles.checkboxCompleted]}
+        onPress={onToggle}
+      >
         {isCompleted && <Check color="#0F2038" size={12} strokeWidth={3} />}
       </TouchableOpacity>
 
       <View style={styles.textContainer}>
-        <Text style={[styles.taskTitle, isCompleted && styles.textCompleted]}>{title}</Text>
+        <Text style={[styles.taskTitle, isCompleted && styles.textCompleted]}>
+          {title}
+        </Text>
 
         {description ? <Text>{description}</Text> : null}
 
@@ -43,7 +45,11 @@ function TaskItem({
         </View>
       </View>
 
-      <TouchableOpacity style={styles.deleteButton} activeOpacity={0.7}>
+      <TouchableOpacity
+        style={styles.deleteButton}
+        activeOpacity={0.7}
+        onPress={onDelete}
+      >
         <Trash2 color="#EF4444" size={18} />
       </TouchableOpacity>
     </TouchableOpacity>
