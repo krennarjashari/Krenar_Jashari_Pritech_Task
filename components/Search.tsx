@@ -2,7 +2,12 @@ import React from 'react'
 import { View, TextInput, StyleSheet } from 'react-native';
 import { SearchIcon } from 'lucide-react-native';
 
-function Search() {
+interface SearchProps{
+  value:string;
+  onChangeText:(text:string)=>void;
+}
+
+function Search({value, onChangeText}:SearchProps) {
   return (
     <View style={styles.container}>
         <SearchIcon color="rgba(255, 255, 255, 0.4)" size={18} style={styles.icon}/>
@@ -11,7 +16,8 @@ function Search() {
         style={styles.input}
         placeholder='Search by title..'
         placeholderTextColor="#8E8E93"
-        editable={true}
+        value={value}
+        onChangeText={onChangeText}
         />
     </View>
   )

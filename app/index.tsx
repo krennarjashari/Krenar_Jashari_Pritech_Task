@@ -45,6 +45,8 @@ function HomeScreen() {
 
   const [activeTab, setActiveTab] = useState("All");
 
+  const [searchQuery, setSearchQuery]=useState("");
+
   const handleAddTask = (title: string, description: string) => {
     const newTask = {
       id: Date.now().toString(),
@@ -71,9 +73,11 @@ function HomeScreen() {
   };
 
   const displayedTasks = tasks.filter((task) => {
-    if (activeTab === "Active") return !task.isCompleted;
-    if (activeTab === "Done") return task.isCompleted;
-    return true;
+    const search=task.title.toLowerCase().includes(searchQuery.toLowerCase());
+
+    if (activeTab === "Active") return search && !task.isCompleted;
+    if (activeTab === "Done") return search && task.isCompleted;
+    return search;
   });
 
   const handleDeleteTask=(id:string)=>{
@@ -88,7 +92,7 @@ function HomeScreen() {
       >
         <ScrollView contentContainerStyle={styles.scrollLayout} bounces={false}>
           <Header />
-          <Search />
+          <Search value={searchQuery} onChangeText={setSearchQuery} />
           <FilterTasks activeTab={activeTab} onSelectTab={setActiveTab} />
           <TaskDetails />
 
